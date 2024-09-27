@@ -3,11 +3,10 @@
 using namespace std;
 
 struct State {
-    double value;          // Change to double to handle decimals
+    double value;          // agar nilai hasil pembagian tidak terpotong karena integer
     vector<int> nums;
     string expr;
 
-    // Adjust the priority queue comparison for floating-point numbers
     bool operator<(const State& other) const {
         return abs(value - 24) > abs(other.value - 24);
     }
@@ -21,32 +20,23 @@ int iterations = 0;
 void solve() {
     if (ok) return;
     priority_queue<State> pq;
-
-    // Initialize the priority queue with the initial numbers
     for (int i = 0; i < 4; i++) {
         pq.push({(double)a[i], {i}, to_string(a[i])});
     }
 
-    // Process the priority queue
     while (!pq.empty()) {
         State cur = pq.top();
         pq.pop();
         iterations++;
-
-        // If the current value is exactly 24, print the solution
         if (abs(cur.value - 24) < 1e-6) {  // Using a small tolerance for floating-point comparison
             cout << "Yes\n" << cur.expr << "\n";
             ok = 1;
             return;
         }
-
-        // Try to combine with other numbers
         for (int i = 0; i < 4; i++) {
             if (find(cur.nums.begin(), cur.nums.end(), i) == cur.nums.end()) {
                 vector<int> new_nums = cur.nums;
                 new_nums.push_back(i);
-
-                // Push new states with different operations
                 pq.push({cur.value + a[i], new_nums, cur.expr + "+" + to_string(a[i])});
                 pq.push({cur.value - a[i], new_nums, cur.expr + "-" + to_string(a[i])});
                 pq.push({cur.value * a[i], new_nums, cur.expr + "*" + to_string(a[i])});
@@ -58,8 +48,6 @@ void solve() {
             }
         }
     }
-
-    // If no solution is found
     cout << "No solution found.\n";
 }
 
