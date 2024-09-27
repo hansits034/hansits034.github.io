@@ -3,13 +3,13 @@
 using namespace std;
 
 struct State {
-    int value;
+    double value;           // agar nilai hasil pembagian tidak terpotong karena integer
     int distance;
     vector<int> nums;
     string expr;
 
     bool operator<(const State& other) const {
-        return distance + abs(value - 24) < other.distance + abs(other.value - 24);
+        return distance + abs(value - 24) > other.distance + abs(other.value - 24);
     }
 };
 
@@ -22,7 +22,7 @@ void solve(int limit) {
     if (ok) return;
     priority_queue<State> pq;
     for (int i = 0; i < 4; i++) {
-        pq.push({a[i], 1, {i}, to_string(a[i])});
+        pq.push({(double)a[i], 1, {i}, to_string(a[i])});
     }
 
     while (!pq.empty()) {
@@ -44,7 +44,7 @@ void solve(int limit) {
                 pq.push({cur.value - a[i], cur.distance + 1, new_nums, cur.expr + "-" + to_string(a[i])});
                 pq.push({cur.value * a[i], cur.distance + 1, new_nums, cur.expr + "*" + to_string(a[i])});
                 if (a[i] != 0) {
-                    pq.push({cur.value / a[i], cur.distance + 1, new_nums, cur.expr + "/" + to_string(a[i])});
+                    pq.push({cur.value / static_cast<double>(a[i]), cur.distance + 1, new_nums, cur.expr + "/" + to_string(a[i])});
                 }
             }
         }
@@ -55,7 +55,7 @@ void solve(int limit) {
 int main() {
     cin.tie(0)->sync_with_stdio(false);
     for (int i = 0; i < 4; i++) cin >> a[i];
-    for (int i=1;i<=4;i++) {
+    for (int i = 1; i <= 4; i++) {
         solve(i);
     }
     cout << "\nIterations: " << iterations;
