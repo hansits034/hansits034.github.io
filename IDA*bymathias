@@ -3,13 +3,13 @@
 using namespace std;
 
 struct State {
-    double value;           // agar nilai hasil pembagian tidak terpotong karena integer
+    double value;
     int distance;
     vector<int> nums;
     string expr;
 
     bool operator<(const State& other) const {
-        return distance + abs(value - 24) > other.distance + abs(other.value - 24);
+        return distance + abs(value - 24) < other.distance + abs(other.value - 24);
     }
 };
 
@@ -55,7 +55,7 @@ void solve(int limit) {
 int main() {
     cin.tie(0)->sync_with_stdio(false);
     for (int i = 0; i < 4; i++) cin >> a[i];
-    for (int i = 1; i <= 4; i++) {
+    for (int i=1;i<=4;i++) {
         solve(i);
     }
     cout << "\nIterations: " << iterations;
