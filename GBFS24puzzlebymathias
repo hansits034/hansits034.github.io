@@ -3,7 +3,7 @@
 using namespace std;
 
 struct State {
-    double value;          // agar nilai hasil pembagian tidak terpotong karena integer
+    double value;
     vector<int> nums;
     string expr;
 
@@ -28,8 +28,8 @@ void solve() {
         State cur = pq.top();
         pq.pop();
         iterations++;
-        if (abs(cur.value - 24) < 1e-6) {  // Using a small tolerance for floating-point comparison
-            cout << "Yes\n" << cur.expr << "\n";
+        if (cur.value == 24) {
+            cout << "Yes \n" << cur.expr << "\n";
             ok = 1;
             return;
         }
@@ -37,13 +37,12 @@ void solve() {
             if (find(cur.nums.begin(), cur.nums.end(), i) == cur.nums.end()) {
                 vector<int> new_nums = cur.nums;
                 new_nums.push_back(i);
+
                 pq.push({cur.value + a[i], new_nums, cur.expr + "+" + to_string(a[i])});
                 pq.push({cur.value - a[i], new_nums, cur.expr + "-" + to_string(a[i])});
                 pq.push({cur.value * a[i], new_nums, cur.expr + "*" + to_string(a[i])});
-
-                // Only divide when the number is non-zero and perform floating-point division
                 if (a[i] != 0) {
-                    pq.push({cur.value / (double)a[i], new_nums, cur.expr + "/" + to_string(a[i])});
+                    pq.push({cur.value / a[i], new_nums, cur.expr + "/" + to_string(a[i])});
                 }
             }
         }
