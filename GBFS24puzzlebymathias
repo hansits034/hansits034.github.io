@@ -8,7 +8,7 @@ struct State {
     string expr;
 
     bool operator<(const State& other) const {
-        return abs(value - 24) > abs(other.value - 24);
+        return abs(value - 24) < abs(other.value - 24);
     }
 };
 
