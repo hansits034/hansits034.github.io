@@ -1,0 +1,227 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    min-height: 100vh;
+    overflow-y: scroll; /* Allows page to be scrollable */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Page Title */
+h1.page-title {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the links */
+    align-items: center; /* Center vertically */
+    width: 100%;
+    max-width: 1200px;
+    background-color: #efefef;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    height: 300px;
+    max-width: 1200px;
+    width: 100%;
+    color: white;
+    animation: backgroundChange 12s infinite;
+}
+
+/* Background Image Slideshow for Profile Section */
+@keyframes backgroundChange {
+    0% {
+        background-image: url('./bgt6p7_1.png');
+    }
+
+    15% {
+        background-image: url('./bgt6p7_2.png');
+    }
+
+    48% {
+        background-image: url('./bgt6p7_3.jpg');
+    }
+
+    81% {
+        background-image: url('./bgt6p7_4.jpg');
+    }
+
+    100% {
+        background-image: url('./bgt6p7_1.png');
+    }
+}
+
+/* Profile Info */
+.profile-description {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 7% 5%; /* Adjust padding to accommodate the image */
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex; /* Add flex display */
+    align-items: center; /* Center items vertically */
+}
+
+.profile-picture {
+    width: 15%; 
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 20px; /* Space between image and text */
+    object-fit: cover; /* Ensure the image covers the area */
+}
+
+.profile-description p {
+    color: white;
+}
+
+h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0; /* Remove bottom margin to avoid extra space */
+}
+
+p {
+    padding-top: 4%;
+    color: black;
+    font-size: 1.2rem;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+    padding-top: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.column {
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+.column:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.content img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.content h3 a {
+    color: #5673C8;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.content h3 a:hover {
+    color: #ff7f50;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Idle Animation */
+@keyframes pulse {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    background: linear-gradient(270deg, #74ebd5, #ACB6E5);
+    background-size: 400% 400%;
+    animation: pulse 10s ease infinite;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 850px) {
+    .column {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
