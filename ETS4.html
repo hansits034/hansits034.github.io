@@ -82,6 +82,44 @@
             border-radius: 5px;
         }
 
+        /* News List */
+        .news-list {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-list h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .news-item {
+            margin-bottom: 20px;
+        }
+
+        .news-item a {
+            text-decoration: none;
+            color: #00ADEF;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .news-item a:hover {
+            text-decoration: underline;
+        }
+
+        .news-item .meta {
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            gap: 10px;
+        }
+
         /* Main Content */
         .main-content {
             display: flex;
@@ -138,7 +176,6 @@
             background-color: #008cc0;
         }
 
-
         /* Trending Section */
         .trending {
             flex: 1;
@@ -177,6 +214,60 @@
             display: flex;
             gap: 5px;
         }
+
+        /* News Content and Comments */
+        .news-content {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .comments-section {
+            margin-top: 30px;
+        }
+
+        .comments-section h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .comment {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .comment .meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-form {
+            margin-top: 20px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .comment-form button {
+            background-color: #00ADEF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #008cc0;
+        }
+
     </style>
 </head>
 <body>
@@ -211,6 +302,61 @@
         </ul>
     </nav>
 
+    <!-- News List Section -->
+    <section class="news-list" id="list">
+        <h3>Daftar Berita</h3>
+        <div class="news-item">
+            <a href="#">Makan seblak setiap hari dalam 1 tahun, seorang pria ditemukan usus buntu.</a>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>12 Okt 2023</span>
+                <span>10 Suka</span>
+                <span>5 Komentar</span>
+                <span>1 jam yang lalu</span>
+            </div>
+        </div>
+        <div class="news-item">
+            <a href="#">Berikut 5 manfaat buah pisang untuk diet.</a>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>11 Okt 2023</span>
+                <span>25 Suka</span>
+                <span>12 Komentar</span>
+                <span>3 jam yang lalu</span>
+            </div>
+        </div>
+        <div class="news-item">
+            <a href="#">Tesla keluarkan robot canggih, siap gantikan manusia.</a>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>10 Okt 2023</span>
+                <span>30 Suka</span>
+                <span>15 Komentar</span>
+                <span>5 jam yang lalu</span>
+            </div>
+        </div>
+        <div class="news-item">
+            <a href="#">Waspada gejala obesitas pada anak, no 5 bikin tercengang.</a>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>9 Okt 2023</span>
+                <span>50 Suka</span>
+                <span>25 Komentar</span>
+                <span>1 hari yang lalu</span>
+            </div>
+        </div>
+        <div class="news-item">
+            <a href="#">Sekolah di SMA Negeri 1002 hanya memiliki 3 siswa.</a>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>8 Okt 2023</span>
+                <span>80 Suka</span>
+                <span>40 Komentar</span>
+                <span>2 hari yang lalu</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <main class="main-content">
         <section class="featured-news">
@@ -223,10 +369,20 @@
                 <span>0 Komentar</span>
                 <span>14 menit</span>
             </div>
-            <a href="#" class="back-button">Kembali Ke Daftar Berita</a>
+            <div class="news-content">
+                <p>Humza Yousaf dilantik jadi Menteri Pertama Skotlandia pada Rabu (29/3). Ia adalah pria Muslim pertama yang menjadi kepala pemerintahan di daerah otonomi khusus Inggris Raya itu.</p><br>
+                <p>Yousaf (37) pemimpin termuda dari partai penguasa Partai Nasional Skotlandia (SNP). Usai dilantik Yousaf berjanji mengembalikan kembali semangat kemerdekaan.</p><br>
+                <p>Pria keturunan Pakistan itu menggantikan posisi Nicola Sturgeon yang mundur beberapa waktu lalu.</p><br>
+                <p>Tugas Yousaf sebagai Menteri Pertama di Skotlandia tidak mudah. Sebab, perpecahan terjadi di SNP.</p><br>
+                <p>Salah satunya penolakan pesaing Yousaf Kate Forbes menduduki jabatan di kabinet. Pada kabinet Sturgeon Forbes menjabat sebagai Menteri Keuangan.</p><br>
+                <p>Forbes diketahui ditawari jabatan lebih junior oleh Yousaf.</p><br>
+                <p>Menurut beberapa mitra Yousaf, penolakan Forbes bukan karena alasan politik. Namun, Forbes ingin konsentrasi pada keluarga lantaran baru saja melahirkan.</p><br>
+                <p>Pada pengambilan sumpah, Yousaf bersumpah untuk melayani Raja Charles III dengan baik dan benar. Meski demikian, Yousaf memastikan mendukung penghapusan monarki Inggris dari Skotlandia.</p><br>
+                <p>PM Inggris Rishi Sunak menyampaikan selamat kepada Yousaf. Sebelumnya Sunak menegaskan siap mencegah upaya kemerdekaan Skotlandia yang dibawa Yousaf.</p><br>
+                <p>Menanggapi Sunak, Yousaf meminta hubungan yang konstruktif. Ia juga meminta Sunak menghormati Sunak menghormati keinginan demokratis rakyat dan parlemen Skotlandia.</p><br>
+            </div>
+            <a href="#list" class="back-button">Kembali Ke Daftar Berita</a>
         </section>
-
-        
 
         <!-- Trending Section -->
         <aside class="trending">
@@ -245,5 +401,24 @@
             <!-- Add more trending items as needed -->
         </aside>
     </main>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h4>Komentar</h4>
+        <div class="comment">
+            <p><strong>User1:</strong> Artikel yang menarik! Saya setuju dengan pandangan ini.</p>
+            <div class="meta">12 Okt 2023</div>
+        </div>
+        <div class="comment">
+            <p><strong>User2:</strong> Penting untuk melihat ke depan dan fokus pada keberagaman.</p>
+            <div class="meta">13 Okt 2023</div>
+        </div>
+        
+        <div class="comment-form">
+            <h4>Tulis Komentar Anda:</h4>
+            <textarea rows="4" placeholder="Tulis komentar di sini..."></textarea>
+            <button>Kirim Komentar</button>
+        </div>
+    </div>
 </body>
 </html>
