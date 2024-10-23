@@ -496,6 +496,10 @@
 
        /* Additional Mobile Optimization */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+
     .home, .about, .menu, .gallery, .booking, .contact {
         padding: 20px;
     }
@@ -507,10 +511,12 @@
     .right {
         align-items: center;
         padding: 0;
+        text-align: center; /* Center-align content */
     }
 
     .right .top p {
         font-size: 24px;
+        word-wrap: break-word; /* Prevent long words from breaking layout */
     }
 
     .right .top a {
@@ -519,10 +525,12 @@
 
     .bottom p {
         font-size: 24px;
+        word-wrap: break-word;
     }
 
     .middle img {
-        width: 200px;
+        width: 100%; /* Prevents image overflow */
+        max-width: 200px;
     }
 
     /* Menu section image adjustment */
@@ -588,6 +596,7 @@
 @media (max-width: 480px) {
     .right .top p {
         font-size: 20px;
+        word-wrap: break-word;
     }
 
     .right .top a {
@@ -596,6 +605,7 @@
 
     .bottom p {
         font-size: 20px;
+        word-wrap: break-word;
     }
 
     .menu img {
