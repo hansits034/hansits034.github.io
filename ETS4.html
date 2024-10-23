@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h1 {
+            color: #00ADEF;
+            font-size: 24px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        .user-actions .login-btn, .user-actions .write-btn {
+            background-color: #00ADEF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .write-btn {
+            background-color: #4CAF50;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: #fff;
+            padding: 10px 0;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav ul li {
+            display: inline;
+        }
+
+        .nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        .nav ul li a:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            max-width: 1200px;
+            gap: 20px;
+        }
+
+        /* Featured News */
+        .featured-news {
+            flex: 3;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-news img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .featured-news h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .featured-news .meta {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* Button Back to News List */
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00ADEF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #008cc0;
+        }
+
+
+        /* Trending Section */
+        .trending {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .trending h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .trending-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .trending-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            border-radius: 8px;
+        }
+
+        .trending-item p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .trending-item .meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1>P-Web News</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Cari di sini...">
+        </div>
+        <div class="user-actions">
+            <button class="login-btn">Masuk</button>
+            <button class="write-btn">Buat Tulisan</button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Entertainment</a></li>
+            <li><a href="#">Bisnis</a></li>
+            <li><a href="#">Tekno & Sains</a></li>
+            <li><a href="#">Woman</a></li>
+            <li><a href="#">Food & Travel</a></li>
+            <li><a href="#">Otomotif</a></li>
+            <li><a href="#">Bola & Sports</a></li>
+            <li><a href="#">Mom</a></li>
+            <li><a href="#">Buzz</a></li>
+            <li><a href="#">Lainnya</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="featured-news">
+            <img src="./img/img1.png" alt="Featured News">
+            <h2>Siapa Humza Yousaf, Pria Muslim Calon Kuat Pemimpin Baru Skotlandia?</h2>
+            <div class="meta">
+                <span>kumparanNEWS</span>
+                <span>23 Januari 2018</span>
+                <span>0 Suka</span>
+                <span>0 Komentar</span>
+                <span>14 menit</span>
+            </div>
+            <a href="#" class="back-button">Kembali Ke Daftar Berita</a>
+        </section>
+
+        
+
+        <!-- Trending Section -->
+        <aside class="trending">
+            <h3>Trending</h3>
+            <div class="trending-item">
+                <img src="./img/img2.png" alt="Trending">
+                <p>Sekda Riau: Saya Prihatin, Istri Tidur di Lantai Waktu Liburan ke Turki</p>
+                <div class="meta">
+                    <span>kumparanNEWS</span>
+                    <span>18 Februari 2018</span>
+                    <span>5 Suka</span>
+                    <span>65 Komentar</span>
+                    <span>6 jam</span>
+                </div>
+            </div>
+            <!-- Add more trending items as needed -->
+        </aside>
+    </main>
+</body>
+</html>
