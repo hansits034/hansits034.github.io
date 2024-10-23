@@ -494,6 +494,69 @@
             border-radius: 50%;
         }
 
+                @media (max-width: 768px) {
+            .home, .about, .menu, .gallery, .booking, .contact {
+                padding: 50px;
+            }
+
+            .left {
+                display: none;
+            }
+
+            .right {
+                align-items: center;
+                padding: 0;
+            }
+
+            .right .top p {
+                font-size: 32px;
+            }
+
+            .right .top a {
+                font-size: 24px;
+            }
+
+            .bottom p {
+                font-size: 32px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            form {
+                gap: 1.5rem;
+            }
+
+            .input, .btn {
+                width: 100%;
+            }
+
+            .contact-box {
+                flex-direction: column;
+            }
+
+            .menu-text {
+                width: 100%;
+            }
+
+            .gallery-images {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .gallery-images div img {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
     </style>
 </head>
 <body>
