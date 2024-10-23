@@ -132,11 +132,11 @@
         document.getElementById("contactForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            // Clear previous error messages and success message
+            // Membersihkan notifikasi yang sebelumnya salah namun sekarang sudah benar
             clearErrors();
             document.getElementById("successMessage").textContent = "";
 
-            // Validate fields
+            // Membuat variabel untuk menandai sudah benar atau salah
             let isValid = true;
 
             const name = document.getElementById("name").value;
@@ -144,13 +144,13 @@
             const phone = document.getElementById("phone").value;
             const message = document.getElementById("message").value;
 
-            // Validate name
+            // Pengecekan nama
             if (name.trim() === "") {
                 isValid = false;
                 document.getElementById("nameError").textContent = "Name is required.";
             }
 
-            // Validate email
+            // Pengecekan email
             const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
             if (email.trim() === "") {
                 isValid = false;
@@ -160,22 +160,21 @@
                 document.getElementById("emailError").textContent = "Please enter a valid email address.";
             }
 
-            // Validate phone
+            // Pengecekan nomor telepon
             if (phone.trim() === "") {
                 isValid = false;
                 document.getElementById("phoneError").textContent = "Phone number is required.";
             }
 
-            // Validate message
+            // Pengecekan Pesan
             if (message.trim() === "") {
                 isValid = false;
                 document.getElementById("messageError").textContent = "Message is required.";
             }
 
-            // If valid, show success message
+            // Jika semua sudah benar, maka ada ditambpilkan notifikasi "Form submitted successfully!"
             if (isValid) {
                 document.getElementById("successMessage").textContent = "Form submitted successfully!";
-                // You can submit the form data to the server here using AJAX or other methods
             }
         });
 
