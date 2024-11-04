@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="login.css">
+    <title>Wordle Registration</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Image Column -->
+            <div class="col-xs-12 col-sm-4 col-md-4 image-column">
+                <img src="/wordle-img.jpg" alt="Wordle Image" class="img-responsive">
+            </div>
+            
+            <!-- Form Column -->
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-1">
+                <div id="form-container">
+                    <!-- Registration Form -->
+                    <form role="form" id="register-form" onsubmit="return handleRegister(event)">
+                        <h2>Please Register <small>to play Wordle with us.</small></h2>
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="register_email" class="form-control input-lg" placeholder="Email Address" tabindex="3" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="register_password" class="form-control input-lg" placeholder="Password" tabindex="4" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="5" required>
+                        </div>
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <input type="submit" value="Register" class="btn btn-success btn-block btn-lg" tabindex="6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <p>Already have an account? <a href="#" onclick="toggleForms()">Sign In</a></p>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Sign In Form -->
+                    <form role="form" id="login-form" style="display: none;" onsubmit="return handleLogin(event)">
+                        <h2>Please Sign In <small>to play Wordle with us.</small></h2>
+                        <hr class="colorgraph">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="1" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+                        </div>
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <input type="submit" value="Sign In" class="btn btn-primary btn-block btn-lg" tabindex="3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p><br>
+                                <p>Untuk mengetest bisa gunakan:<br>email: user@example.com<br>password: password123</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
