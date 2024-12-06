@@ -1,0 +1,55 @@
+import numpy as np
+from itertools import combinations
+
+# Matriks konflik diambil dari tabel gambar
+conflict_matrix = np.array([
+    [3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [1, 3, 6, 0, 4, 2, 5, 1, 3, 3, 0, 4],
+    [5, 0, 5, 5, 0, 0, 5, 0, 5, 0, 5, 5],
+    [2, 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 3],
+    [3, 5, 2, 2, 0, 3, 1, 4, 4, 3, 2, 5],
+    [5, 5, 0, 0, 5, 5, 0, 5, 0, 5, 5, 0],
+    [0, 3, 4, 3, 4, 3, 4, 3, 4, 3, 3, 0],
+])
+
+# Membuat graf konflik berdasarkan dosen yang sama mengajar di kolom yang sama
+def build_graph(matrix):
+    num_courses = matrix.shape[1]  # Jumlah mata kuliah
+    graph = {i: set() for i in range(num_courses)}  # Inisialisasi graf kosong
+    
+    # Cek konflik antar-mata kuliah
+    for i, j in combinations(range(num_courses), 2):
+        if np.any((matrix[:, i] > 0) & (matrix[:, j] > 0)):  # Ada konflik dosen
+            graph[i].add(j)
+            graph[j].add(i)
+    
+    return graph
+
+# Graph coloring menggunakan algoritma greedy untuk menghitung jumlah kelas
+def greedy_coloring(graph):
+    colors = {}  # Warna setiap simpul
+    for node in sorted(graph, key=lambda x: len(graph[x]), reverse=True):  # Urutkan berdasarkan derajat
+        neighbor_colors = {colors[neighbor] for neighbor in graph[node] if neighbor in colors}
+        # Tetapkan warna pertama yang tersedia
+        colors[node] = next(color for color in range(len(graph)) if color not in neighbor_colors)
+    return colors
+
+# Bangun graf konflik
+graph = build_graph(conflict_matrix)
+
+# Lakukan pewarnaan graf menggunakan algoritma greedy
+coloring = greedy_coloring(graph)
+
+# Hitung jumlah kelas minimum (jumlah warna yang digunakan)
+min_classes = max(coloring.values()) + 1
+
+# Cetak hasil
+print("Graf Konflik (Adjacency List):")
+for course, conflicts in graph.items():
+    print(f"Course {course}: {conflicts}")
+
+print("\nPewarnaan Graf (Coloring):")
+for course, color in coloring.items():
+    print(f"Course {course}: Color {color}")
+
+print(f"\nJumlah kelas minimum yang dibutuhkan: {min_classes}")
