@@ -9,44 +9,48 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: white;
+            background-color: #f4f4f9;
             color: #333;
         }
         header {
-            background-color: lightblue;
-            color: black;
+            background-color: #007BFF;
+            color: white;
             padding: 15px 20px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         form {
-            max-width: 500px;
-            margin: 20px auto;
-            background: #ffffff;
-            padding: 20px;
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin: 12px 0 6px;
             font-weight: bold;
         }
         select, input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
         button {
             background-color: #28a745;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 12px 18px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.1em;
+            width: 100%;
         }
         button:hover {
             background-color: #218838;
@@ -54,29 +58,29 @@
         .result-card {
             display: none;
             margin: 20px auto;
-            max-width: 500px;
+            max-width: 600px;
             background-color: #e9f7ef;
             border: 1px solid #28a745;
             border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .result-card h3 {
             margin-top: 0;
             color: #155724;
         }
         .result-card p {
-            margin: 5px 0;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
 
-<header>Kode Pos Indonesia</header>
+<header>Pencarian Kode Pos Indonesia</header>
 
-<form id="postalCodeForm">
-    <label for="provinsi">Provinsi</label>
-    <select id="provinsi" name="provinsi">
+<form id="formPencarian">
+    <label for="pilihProvinsi">Provinsi</label>
+    <select id="pilihProvinsi" name="provinsi">
         <option value="">Pilih Provinsi</option>
         <option value="Jawa Barat">Jawa Barat</option>
         <option value="Jawa Tengah">Jawa Tengah</option>
@@ -84,144 +88,127 @@
         <option value="Bali">Bali</option>
     </select>
 
-    <label for="kota">Kabupaten/Kota</label>
-    <select id="kota" name="kota">
+    <label for="pilihKota">Kabupaten/Kota</label>
+    <select id="pilihKota" name="kota">
         <option value="">Pilih Kabupaten/Kota</option>
     </select>
 
-    <label for="kodePos">Masukkan Kata Kunci Kode Pos</label>
-    <input type="text" id="kodePos" name="kodePos" placeholder="Contoh: 40615">
+    <label for="inputKodePos">Masukkan Kode Pos</label>
+    <input type="text" id="inputKodePos" name="kodePos" placeholder="Contoh: 17145">
 
     <button type="submit">Cari Kode Pos</button>
 </form>
 
-<div id="resultCard" class="result-card">
+<div id="hasilPencarian" class="result-card">
     <h3>Hasil Pencarian</h3>
-    <p id="postalCode">Kode Pos: </p>
-    <p id="areaInfo">Informasi Daerah: </p>
+    <p id="kodePosHasil">Kode Pos: </p>
+    <p id="infoDaerah">Informasi Daerah: </p>
 </div>
 
 <script>
-    const provinsiSelect = document.getElementById('provinsi');
-    const kotaSelect = document.getElementById('kota');
-    const kodePosInput = document.getElementById('kodePos');
-    const resultCard = document.getElementById('resultCard');
-    const postalCodePara = document.getElementById('postalCode');
-    const areaInfoPara = document.getElementById('areaInfo');
+    const provinsiDropdown = document.getElementById('pilihProvinsi');
+    const kotaDropdown = document.getElementById('pilihKota');
+    const kodePosInput = document.getElementById('inputKodePos');
+    const hasilDiv = document.getElementById('hasilPencarian');
+    const kodePosOutput = document.getElementById('kodePosHasil');
+    const infoDaerahOutput = document.getElementById('infoDaerah');
 
-    const data = {
+    const kodePosDatabase = {
         "Jawa Barat": {
             "Bandung": {
-                "40615": "Bandung, Cibiru, Jawa Barat",
-                "40622": "Bandung, Cileunyi, Jawa Barat",
-                "40623": "Bandung, Arcamanik, Jawa Barat",
-                "40624": "Bandung, Kiaracondong, Jawa Barat"
+                "40615": "Cibiru, Bandung, Jawa Barat",
+                "40622": "Cileunyi, Bandung, Jawa Barat",
+                "40680": "Dayeuhkolot, Bandung, Jawa Barat",
+                "40774": "Soreang, Bandung, Jawa Barat"
             },
-            "Bekasi": {
-                "17113": "Bekasi Timur, Jawa Barat",
-                "17144": "Bekasi Selatan, Jawa Barat",
-                "17145": "Bekasi Utara, Jawa Barat",
-                "17150": "Bekasi Barat, Jawa Barat"
-            },
-            "Bogor": {
-                "16710": "Bogor, Bogor Selatan, Jawa Barat",
-                "16720": "Bogor, Bogor Tengah, Jawa Barat",
-                "16730": "Bogor, Bogor Utara, Jawa Barat"
+            "Cirebon": {
+                "45111": "Kejaksan, Cirebon, Jawa Barat",
+                "45153": "Harjamukti, Cirebon, Jawa Barat",
+                "45162": "Lemahwungkuk, Cirebon, Jawa Barat",
+                "45191": "Pekalipan, Cirebon, Jawa Barat"
             }
         },
         "Jawa Tengah": {
             "Semarang": {
-                "50257": "Semarang, Candisari, Jawa Tengah",
-                "50275": "Semarang, Tembalang, Jawa Tengah",
-                "50276": "Semarang, Ngaliyan, Jawa Tengah",
-                "50280": "Semarang, Gayamsari, Jawa Tengah"
+                "50257": "Candisari, Semarang, Jawa Tengah",
+                "50275": "Tembalang, Semarang, Jawa Tengah",
+                "50277": "Gunungpati, Semarang, Jawa Tengah",
+                "50279": "Banyumanik, Semarang, Jawa Tengah"
             },
-            "Solo": {
-                "57111": "Solo, Pasar Kliwon, Jawa Tengah",
-                "57126": "Solo, Laweyan, Jawa Tengah",
-                "57127": "Solo, Jebres, Jawa Tengah",
-                "57128": "Solo, Banjarsari, Jawa Tengah"
-            },
-            "Magelang": {
-                "56111": "Magelang, Magelang Tengah, Jawa Tengah",
-                "56112": "Magelang, Magelang Utara, Jawa Tengah",
-                "56113": "Magelang, Magelang Selatan, Jawa Tengah"
+            "Purwokerto": {
+                "53111": "Purwokerto Timur, Jawa Tengah",
+                "53121": "Purwokerto Barat, Jawa Tengah",
+                "53141": "Purwokerto Selatan, Jawa Tengah",
+                "53151": "Purwokerto Utara, Jawa Tengah"
             }
         },
         "Jawa Timur": {
             "Surabaya": {
-                "60281": "Surabaya, Gubeng, Jawa Timur",
-                "60242": "Surabaya, Wonokromo, Jawa Timur",
-                "60216": "Surabaya, Lontar, Jawa Timur",
-                "60291": "Surabaya, Sawahan, Jawa Timur"
+                "60281": "Gubeng, Surabaya, Jawa Timur",
+                "60242": "Wonokromo, Surabaya, Jawa Timur",
+                "60251": "Sukomanunggal, Surabaya, Jawa Timur",
+                "60291": "Sawahan, Surabaya, Jawa Timur"
             },
             "Malang": {
-                "65145": "Malang, Klojen, Jawa Timur",
-                "65141": "Malang, Lowokwaru, Jawa Timur",
-                "65142": "Malang, Sukun, Jawa Timur",
-                "65143": "Malang, Blimbing, Jawa Timur"
-            },
-            "Madiun": {
-                "63111": "Madiun, Madiun Kota, Jawa Timur",
-                "63112": "Madiun, Madiun Timur, Jawa Timur",
-                "63113": "Madiun, Madiun Barat, Jawa Timur"
+                "65145": "Klojen, Malang, Jawa Timur",
+                "65141": "Lowokwaru, Malang, Jawa Timur",
+                "65165": "Tumpang, Malang, Jawa Timur",
+                "65166": "Kepanjen, Malang, Jawa Timur"
             }
         },
         "Bali": {
             "Denpasar": {
-                "80115": "Denpasar, Denpasar Timur, Bali",
-                "80116": "Denpasar, Denpasar Barat, Bali",
-                "80117": "Denpasar, Denpasar Selatan, Bali",
-                "80118": "Denpasar, Denpasar Utara, Bali"
+                "80115": "Denpasar Timur, Bali",
+                "80116": "Denpasar Barat, Bali",
+                "80118": "Denpasar Selatan, Bali",
+                "80119": "Denpasar Utara, Bali"
             },
-            "Badung": {
-                "80351": "Badung, Kuta, Bali",
-                "80352": "Badung, Legian, Bali",
-                "80353": "Badung, Seminyak, Bali",
-                "80354": "Badung, Jimbaran, Bali"
+            "Gianyar": {
+                "80511": "Gianyar Kota, Bali",
+                "80515": "Tegallalang, Gianyar, Bali",
+                "80561": "Blahbatuh, Gianyar, Bali",
+                "80571": "Ubud, Gianyar, Bali"
             }
-        },
+        }
     };
 
+    provinsiDropdown.addEventListener('change', function () {
+        const provinsi = provinsiDropdown.value;
+        kotaDropdown.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
 
-provinsiSelect.addEventListener('change', function () {
-    const provinsi = provinsiSelect.value;
-    kotaSelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>'; // Reset kota dropdown
+        if (kodePosDatabase[provinsi]) {
+            Object.keys(kodePosDatabase[provinsi]).forEach(kota => {
+                const option = document.createElement('option');
+                option.value = kota;
+                option.textContent = kota;
+                kotaDropdown.appendChild(option);
+            });
+        }
+    });
 
-    if (data[provinsi]) {
-        Object.keys(data[provinsi]).forEach(kota => {
-            const option = document.createElement('option');
-            option.value = kota;
-            option.textContent = kota;
-            kotaSelect.appendChild(option);
-        });
-    }
-});
+    document.getElementById('formPencarian').addEventListener('submit', function (e) {
+        e.preventDefault();
 
-document.getElementById('postalCodeForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+        const provinsi = provinsiDropdown.value;
+        const kota = kotaDropdown.value;
+        const kodePos = kodePosInput.value.trim();
 
-    const provinsi = provinsiSelect.value;
-    const kota = kotaSelect.value;
-    const kodePos = kodePosInput.value.trim();
+        if (!provinsi || !kota || !kodePos) {
+            alert('Harap pilih provinsi, kota, dan masukkan kode pos!');
+            return;
+        }
 
-    if (!provinsi || !kota || !kodePos) {
-        alert('Harap pilih provinsi, kota, dan masukkan kode pos!');
-        return;
-    }
+        const daerahInfo = kodePosDatabase[provinsi]?.[kota]?.[kodePos];
 
-    const daerahInfo = data[provinsi]?.[kota]?.[kodePos];
-
-    if (daerahInfo) {
-        resultCard.style.display = 'block';
-        postalCodePara.textContent = `Kode Pos: ${kodePos}`;
-        areaInfoPara.textContent = `Informasi Daerah: ${daerahInfo}`;
-    } else {
-        resultCard.style.display = 'none';
-        alert('Data tidak ditemukan!');
-    }
-});
-
+        if (daerahInfo) {
+            hasilDiv.style.display = 'block';
+            kodePosOutput.textContent = `Kode Pos: ${kodePos}`;
+            infoDaerahOutput.textContent = `Informasi Daerah: ${daerahInfo}`;
+        } else {
+            hasilDiv.style.display = 'none';
+            alert('Data tidak ditemukan!');
+        }
+    });
 </script>
 
 </body>
