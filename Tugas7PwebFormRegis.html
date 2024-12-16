@@ -5,34 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Registrasi Mahasiswa</title>
     <style>
-        h2{
+        h2 {
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
+            color: #333;
         }
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: lightblue; 
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
+            animation: moveBg 10s linear infinite;
+            z-index: -1;
+        }
+        @keyframes moveBg {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, 10px); }
+            100% { transform: translate(0, 0); }
         }
         form {
             max-width: 400px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            background: #ffffffcc;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards ease-out;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         label {
             display: block;
             margin: 10px 0 5px;
+            font-weight: bold;
         }
         input, select {
-            width: 380px;
-            padding: 8px;
+            width: 100%;
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 14px;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #74ebd5;
+            box-shadow: 0 0 8px rgba(116, 235, 213, 0.8);
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #74ebd5;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4cc9f0;
         }
         .autocomplete-suggestions {
             border: 1px solid #ccc;
@@ -58,97 +111,97 @@
     </style>
 </head>
 <body>
+    <h2>Form Registrasi Mahasiswa</h2>
+    <form id="registrationForm">
+        <label for="nama">Nama Mahasiswa</label>
+        <input type="text" id="nama" name="nama" autocomplete="off">
+        <div id="suggestions" class="autocomplete-suggestions"></div>
 
-<h2>Form Registrasi Mahasiswa</h2>
-<form id="registrationForm">
-    <label for="nama">Nama Mahasiswa</label>
-    <input type="text" id="nama" name="nama" autocomplete="off">
-    <div id="suggestions" class="autocomplete-suggestions"></div>
+        <label for="nim">NIM</label>
+        <input type="text" id="nim" name="nim">
 
-    <label for="nim">NIM</label>
-    <input type="text" id="nim" name="nim">
+        <label for="mataKuliah">Mata Kuliah</label>
+        <input type="text" id="mataKuliah" name="mataKuliah">
 
-    <label for="mataKuliah">Mata Kuliah</label>
-    <input type="text" id="mataKuliah" name="mataKuliah">
+        <label for="dosen">Dosen</label>
+        <select id="dosen" name="dosen">
+            <option value="">Pilih Dosen</option>
+            <option value="Dr. John Smith">Dr. John Smith</option>
+            <option value="Dr. Emily Johnson">Dr. Emily Johnson</option>
+            <option value="Dr. William Brown">Dr. William Brown</option>
+            <option value="Dr. Olivia Davis">Dr. Olivia Davis</option>
+            <option value="Dr. Liam Wilson">Dr. Liam Wilson</option>
+        </select>
 
-    <label for="dosen">Dosen</label>
-    <select id="dosen" name="dosen">
-        <option value="">Pilih Dosen</option>
-        <option value="Dr. Mulyanto">Dr. Mulyanto</option>
-        <option value="Dr. Siti Badriah">Dr. Siti Badriah</option>
-        <option value="Dr. Bambang Pamungkas">Dr. Bambang Pamungkas</option>
-    </select>
+        <button type="submit">Submit</button>
+    </form>
 
-    <button type="submit">Submit</button>
-</form>
+    <script>
+        const namaInput = document.getElementById('nama');
+        const suggestionsContainer = document.getElementById('suggestions');
+        const form = document.getElementById('registrationForm');
 
-<script>
-    const namaInput = document.getElementById('nama');
-    const suggestionsContainer = document.getElementById('suggestions');
-    const form = document.getElementById('registrationForm');
+        const daftarNama = [
+            "Michael Brown",
+            "Emma Thomas",
+            "Alexander Garcia",
+            "Sophia Martinez",
+            "James White",
+            "Ava Lopez",
+            "Benjamin Anderson",
+            "Charlotte Walker",
+            "Lucas Robinson",
+            "Amelia Lewis"
+        ];
 
-    const daftarNama = [
-        "Ahmad Fauzan",
-        "Bagus Pratama",
-        "Citra Dewi",
-        "Dewi Lestari",
-        "Eko Prasetyo",
-        "Fahmi Ramadhan",
-        "Galih Saputra",
-        "Hana Kartika",
-        "Indra Wijaya",
-        "Joko Susilo"
-    ];
+        namaInput.addEventListener('input', function () {
+            const query = namaInput.value.toLowerCase();
+            suggestionsContainer.innerHTML = '';
 
-    namaInput.addEventListener('input', function () {
-        const query = namaInput.value.toLowerCase();
-        suggestionsContainer.innerHTML = '';
-
-        if (query) {
-            const filteredNames = daftarNama.filter(name => name.toLowerCase().includes(query));
-            if (filteredNames.length > 0) {
-                suggestionsContainer.classList.add('visible');
-                filteredNames.forEach(name => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.textContent = name;
-                    suggestionItem.classList.add('autocomplete-suggestion');
-                    suggestionItem.addEventListener('click', function () {
-                        namaInput.value = name;
-                        suggestionsContainer.innerHTML = '';
-                        suggestionsContainer.classList.remove('visible');
+            if (query) {
+                const filteredNames = daftarNama.filter(name => name.toLowerCase().includes(query));
+                if (filteredNames.length > 0) {
+                    suggestionsContainer.classList.add('visible');
+                    filteredNames.forEach(name => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.textContent = name;
+                        suggestionItem.classList.add('autocomplete-suggestion');
+                        suggestionItem.addEventListener('click', function () {
+                            namaInput.value = name;
+                            suggestionsContainer.innerHTML = '';
+                            suggestionsContainer.classList.remove('visible');
+                        });
+                        suggestionsContainer.appendChild(suggestionItem);
                     });
-                    suggestionsContainer.appendChild(suggestionItem);
-                });
+                } else {
+                    suggestionsContainer.classList.remove('visible');
+                }
             } else {
                 suggestionsContainer.classList.remove('visible');
             }
-        } else {
-            suggestionsContainer.classList.remove('visible');
-        }
-    });
+        });
 
-    document.addEventListener('click', function (e) {
-        if (!suggestionsContainer.contains(e.target) && e.target !== namaInput) {
-            suggestionsContainer.innerHTML = '';
-            suggestionsContainer.classList.remove('visible');
-        }
-    });
+        document.addEventListener('click', function (e) {
+            if (!suggestionsContainer.contains(e.target) && e.target !== namaInput) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.classList.remove('visible');
+            }
+        });
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-        const nama = document.getElementById('nama').value.trim();
-        const nim = document.getElementById('nim').value.trim();
-        const mataKuliah = document.getElementById('mataKuliah').value.trim();
-        const dosen = document.getElementById('dosen').value;
+            const nama = document.getElementById('nama').value.trim();
+            const nim = document.getElementById('nim').value.trim();
+            const mataKuliah = document.getElementById('mataKuliah').value.trim();
+            const dosen = document.getElementById('dosen').value;
 
-        if (!nama || !nim || !mataKuliah || !dosen) {
-            alert('Harap isi semua bagian formulir!');
-        } else {
-            alert('Formulir berhasil disubmit!');
-        }
-    });
-</script>
-
+            if (!nama || !nim || !mataKuliah || !dosen) {
+                alert('Harap isi semua bagian formulir!');
+            } else {
+                alert('Formulir berhasil disubmit!');
+            }
+        });
+    </script>
 </body>
 </html>
