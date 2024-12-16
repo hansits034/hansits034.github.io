@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi Mahasiswa</title>
+    <style>
+        h2{
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 100px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: lightblue; 
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 380px;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .autocomplete-suggestions {
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #fff;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            display: none; 
+        }
+        .autocomplete-suggestions.visible {
+            display: block;
+        }
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Form Registrasi Mahasiswa</h2>
+<form id="registrationForm">
+    <label for="nama">Nama Mahasiswa</label>
+    <input type="text" id="nama" name="nama" autocomplete="off">
+    <div id="suggestions" class="autocomplete-suggestions"></div>
+
+    <label for="nim">NIM</label>
+    <input type="text" id="nim" name="nim">
+
+    <label for="mataKuliah">Mata Kuliah</label>
+    <input type="text" id="mataKuliah" name="mataKuliah">
+
+    <label for="dosen">Dosen</label>
+    <select id="dosen" name="dosen">
+        <option value="">Pilih Dosen</option>
+        <option value="Dr. Mulyanto">Dr. Mulyanto</option>
+        <option value="Dr. Siti Badriah">Dr. Siti Badriah</option>
+        <option value="Dr. Bambang Pamungkas">Dr. Bambang Pamungkas</option>
+    </select>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    const namaInput = document.getElementById('nama');
+    const suggestionsContainer = document.getElementById('suggestions');
+    const form = document.getElementById('registrationForm');
+
+    const daftarNama = [
+        "Ahmad Fauzan",
+        "Bagus Pratama",
+        "Citra Dewi",
+        "Dewi Lestari",
+        "Eko Prasetyo",
+        "Fahmi Ramadhan",
+        "Galih Saputra",
+        "Hana Kartika",
+        "Indra Wijaya",
+        "Joko Susilo"
+    ];
+
+    namaInput.addEventListener('input', function () {
+        const query = namaInput.value.toLowerCase();
+        suggestionsContainer.innerHTML = '';
+
+        if (query) {
+            const filteredNames = daftarNama.filter(name => name.toLowerCase().includes(query));
+            if (filteredNames.length > 0) {
+                suggestionsContainer.classList.add('visible');
+                filteredNames.forEach(name => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.textContent = name;
+                    suggestionItem.classList.add('autocomplete-suggestion');
+                    suggestionItem.addEventListener('click', function () {
+                        namaInput.value = name;
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.classList.remove('visible');
+                    });
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                suggestionsContainer.classList.remove('visible');
+            }
+        } else {
+            suggestionsContainer.classList.remove('visible');
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!suggestionsContainer.contains(e.target) && e.target !== namaInput) {
+            suggestionsContainer.innerHTML = '';
+            suggestionsContainer.classList.remove('visible');
+        }
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nama = document.getElementById('nama').value.trim();
+        const nim = document.getElementById('nim').value.trim();
+        const mataKuliah = document.getElementById('mataKuliah').value.trim();
+        const dosen = document.getElementById('dosen').value;
+
+        if (!nama || !nim || !mataKuliah || !dosen) {
+            alert('Harap isi semua bagian formulir!');
+        } else {
+            alert('Formulir berhasil disubmit!');
+        }
+    });
+</script>
+
+</body>
+</html>
